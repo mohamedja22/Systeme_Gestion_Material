@@ -1,0 +1,49 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sonarqube-scan:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+    env:
+      SONAR_PROJECT_KEY: "gestion_materiel"
+      SONAR_SOURCES: "."
+      SONAR_JAVA_BINARIES: "**/target/classes"  # À adapter si projet Java
+      SONAR_EXCLUSIONS: "**/vendor/**,**/node_modules/**,**/tests/**"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Obligatoire pour SonarQube
+
+      - name: Set up JDK (requis pour SonarScanner)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Run SonarQube Analysis
+        uses: SonarSource/sonarqube-scan-action@v1.8
+        with:
+          args: >
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+            -Dsonar.sources=${{ env.SONAR_SOURCES }}
+            -Dsonar.exclusions=${{ env.SONAR_EXCLUSIONS }}
+            -Dsonar.java.binaries=${{ env.SONAR_JAVA_BINARIES }}
+            -Dsonar.qualitygate.wait=true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
