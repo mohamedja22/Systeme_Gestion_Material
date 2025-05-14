@@ -200,33 +200,22 @@ const Dashboard = () => {
                           <th>Livraison</th>
                           <th>Rejet</th>
                           <th className="d-none d-md-table-cell">Justification</th>
-                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {filteredRequests.map(req=> (
                           <tr key={req.id}>
                             <td>{req.id}</td>
-                            <td>{req.material_name}</td> 
+                            <td>{req.material}</td> 
                             <td>{req.quantity}</td> 
                             <td>{new Date(req.created_at).toLocaleDateString()}</td> 
 
                             <td><Badge bg={getStatusColor(req.status)}>{getStatusDisplay(req.status)}</Badge></td> 
-                            <td>{req.status==='accepted'&& req.delivery_date ? new Date(req.delivery_date).toLocaleDateString():'-'}</td>
+                            <td>{req.status === 'approved' && req.delivery_date ? new Date(req.delivery_date).toLocaleDateString() : '-'}</td>
                             <td>{req.status==='rejected'&& req.rejection_reason ? req.rejection_reason:'-'}</td>
 
                             <td className="d-none d-md-table-cell">{req.justification||'-'}</td> 
-                            <td>{req.status==='pending'?  // Actions only for pending requests
-                              <>
-                              <button className="btn btn-sm btn-outline-success me-2" 
-                                onClick={()=>handleOpenModal(req.id,'accept')}>Approuver
-                              </button>
-                                <button className="btn btn-sm btn-outline-danger" 
-                                  onClick={()=>handleOpenModal(req.id,'reject')}> Rejeter
-                                </button>
-                              </>:
-                              <span className="text-muted">Action effectuée</span>}
-                            </td>
+                            
                           </tr>
                         ))}
                       </tbody>

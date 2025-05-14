@@ -24,7 +24,7 @@ const EmployeeManagement = () => {
   const roleOptions = [
     { value: "employé", label: "Employé" },
     { value: "validateur", label: "Validateur" },
-    { value: "admin", label: "Administrateur" },
+    // { value: "admin", label: "Administrateur" },
   ];
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const EmployeeManagement = () => {
       setShowModal(false);
     } catch (error) {
       setError("Erreur d'ajout d'employé");
-      console.error(error);
+      console.error(error.response?.data || error);
     } finally {
       setLoading(false);
     }

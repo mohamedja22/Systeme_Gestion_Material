@@ -26,10 +26,10 @@ class MaterialRequest extends Model
 
     /*** Cast fields to proper types */
     protected $casts = [
-        'delivery_date'    => 'date:Y-m-d',
-        'created_at'       => 'datetime:Y-m-d H:i:s',
-        'updated_at'       => 'datetime:Y-m-d H:i:s',
-    ];
+    'delivery_date'    => 'datetime:Y-m-d\TH:i:s\Z', // Format ISO
+    'created_at'       => 'datetime:Y-m-d\TH:i:s\Z', // Format ISO
+    'updated_at'       => 'datetime:Y-m-d\TH:i:s\Z', // Format ISO
+];
 
     public function user()
     {

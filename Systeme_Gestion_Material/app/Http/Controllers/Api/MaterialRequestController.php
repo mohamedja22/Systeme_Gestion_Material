@@ -38,22 +38,6 @@ class MaterialRequestController extends Controller
         return MaterialRequestResource::collection($requests);
     }
 
-    // public function update(Request $request, MaterialRequest $id)
-    // {
-    //     $validated = $request->validate([
-    //         'status' => 'required|in:pending,approved,rejected,delivered',
-    //         'delivery_date' => 'nullable|date',
-    //         'rejection_reason' => 'nullable|string|required_if:status,rejected'
-    //     ]);
-
-    //     $request->update($validated);
-
-    //     return response()->json([
-    //         'message' => 'Request updated successfully',
-    //         'data' => new MaterialRequestResource($request)
-    //     ]);
-    // }
-
     public function update(Request $request, MaterialRequest $materialRequest)
     {
         $data = $request->validate([

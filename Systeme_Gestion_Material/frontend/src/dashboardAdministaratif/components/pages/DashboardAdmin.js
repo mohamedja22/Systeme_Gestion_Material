@@ -134,8 +134,8 @@ const DashboardAdmin = () => {
                         {filteredRequests.length>0 ? filteredRequests.map(r=> (
                           <tr key={r.id}>
                             <td>{r.id}</td>
-                            <td>{r.requester_name || '-'}</td>
-                            <td>{r.material_name}</td>
+                            <td>{r.demandeur || '-'}</td>
+                            <td>{r.material || '-'}</td> 
                             <td>{r.quantity}</td>
                             <td>{new Date(r.created_at).toLocaleDateString()}</td>
                             <td><span className={`badge bg-${getStatusColor(r.status)}`}>{r.status}</span></td>

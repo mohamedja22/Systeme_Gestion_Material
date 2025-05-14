@@ -49,7 +49,7 @@ const useDemandes = () => {
 const TableRow = memo(({ demande, onOpenModal }) => (
   <tr>
     <td>{demande.id}</td>
-    <td>{demande.material_name || '-'}</td>
+    <td>{demande.material || '-'}</td>
     <td>{demande.quantity}</td>
     <td>{demande.created_at ? new Date(demande.created_at).toLocaleDateString() : '-'}</td>
     <td>

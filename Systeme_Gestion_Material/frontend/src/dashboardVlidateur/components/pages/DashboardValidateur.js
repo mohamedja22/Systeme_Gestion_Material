@@ -145,8 +145,21 @@ const DashboardValidateur = () => {
                       <tbody>
                         {filteredRequests.length > 0 ? filteredRequests.map(request => (
                           <tr key={request.id}>
-                            <td>{new Date(request.created_at).toLocaleDateString()}</td>
-                            <td>{request.material_name}</td>
+                            <td>
+                              {request.created_at 
+                                ? new Date(request.created_at).toLocaleDateString("fr-FR", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit"
+                                  })
+                                : "-"}
+                            </td>
+                            <td>
+                              {request.delivery_date 
+                                ? new Date(request.delivery_date).toLocaleDateString("fr-FR")
+                                : "-"}
+                            </td>
+                            <td>{request.material}</td>
                             <td>{request.quantity}</td>
                             <td className="d-none d-md-table-cell">{request.justification || '-'}</td>
                             <td><Badge bg={getStatusColor(request.status)}>{getStatusDisplay(request.status)}</Badge></td>

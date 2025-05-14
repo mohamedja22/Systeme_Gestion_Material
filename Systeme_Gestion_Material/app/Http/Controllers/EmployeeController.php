@@ -47,7 +47,7 @@ class EmployeeController extends Controller {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make('password@123')
+            'password' => $request->password ? Hash::make($request->password) : Hash::make('password@123'),
         ]);
 
         // Get the role ID
@@ -129,7 +129,7 @@ class EmployeeController extends Controller {
         ], 204); // 204 No Content is standard for delete operations
     }
 
-    protected function generateMatricule() {
-        return 'EMP' . now()->format('Ym') . str_pad(Employee::count() + 1, 4, '0', STR_PAD_LEFT);
-    }
+    // protected function generateMatricule() {
+    //     return 'EMP' . now()->format('Ym') . str_pad(Employee::count() + 1, 1, '0', STR_PAD_LEFT);
+    // }
 }
